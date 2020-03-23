@@ -1,30 +1,33 @@
-import {Link} from 'gatsby'
-import React from 'react'
-import Icon from './icon'
-import {cn} from '../lib/helpers'
+import React from 'react';
+import { Link } from 'gatsby';
+import { Box } from '@material-ui/core';
+import Logo from '../images/logo.svg';
+import { makeStyles } from '@material-ui/core/styles';
+import ImgHeader from '../images/header.jpg';
 
-import styles from './header.module.css'
+const useStyles = makeStyles(theme => ({
+  header: {
+    background: theme.palette.secondary.main,
+    [theme.breakpoints.up('lg')]: {
+      background: `url(${ImgHeader}) 50% 0 no-repeat`,
+    },
+  },
+}));
 
-const Header = ({onHideNav, onShowNav, showNav, siteTitle}) => (
-  <div className={styles.root}>
-    <div className={styles.wrapper}>
-      <div className={styles.branding}>
-        <Link to='/'>{siteTitle}</Link>
-      </div>
+function Header({ siteTitle }) {
+  const classes = useStyles();
+  return (
+    <Box
+      p={{ lg: '20px 20px 20px 150px', xs: 5 }}
+      height={{ xs: 'auto', lg: 824 }}
+      mb={{ xs: '20px', lg: '300px' }}
+      className={classes.header}
+    >
+      <Link to="/">
+        <img src={Logo} alt={siteTitle} />
+      </Link>
+    </Box>
+  );
+}
 
-      <button className={styles.toggleNavButton} onClick={showNav ? onHideNav : onShowNav}>
-        <Icon symbol='hamburger' />
-      </button>
-
-      <nav className={cn(styles.nav, showNav && styles.showNav)}>
-        <ul>
-          <li>
-            <Link to='/archive/'>Archive</Link>
-          </li>
-        </ul>
-      </nav>
-    </div>
-  </div>
-)
-
-export default Header
+export default Header;

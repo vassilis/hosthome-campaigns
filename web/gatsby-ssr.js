@@ -5,3 +5,6 @@
  */
 
 // You can delete this file if you're not using it
+
+import muiRoot from './src/components/mui-root';
+export const wrapRootElement = muiRoot;
